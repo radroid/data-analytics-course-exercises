@@ -10,7 +10,9 @@ library(psych)
 library(gmodels)
 library(readr)
 ```
-Load data: drug.csv
+
+Loading drugs data.
+
 ```{r}
 drug <- read_csv("drug.csv")
 ```
@@ -61,3 +63,23 @@ lines(xfit, yfit, col="red", lwd=3)
 plot(drug$mcs, drug$cesd, main = "Epidemiologic Studies", xlab = "cesd")
 abline(lm(drug$mcs~drug$cesd), col="blue")
 ```
+```{r}
+cor(drug$mcs, drug$cesd, use="everything")
+```
+
+Creating a Crosstab table.
+
+```{r}
+mytable <- CrossTable(drug$sex, drug$homeless)
+```
+
+```{r}
+mytable
+```
+
+
+
+
+
+
+
