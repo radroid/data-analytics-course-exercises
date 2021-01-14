@@ -1,0 +1,63 @@
+---
+title: "Week 2 - Exercises in R"
+output: html_notebook
+---
+Install required packages
+install.packages(c("lattice", "psych", "gmodels", "readr"))
+```{r}
+library(lattice)
+library(psych)
+library(gmodels)
+library(readr)
+```
+Load data: drug.csv
+```{r}
+drug <- read_csv("drug.csv")
+```
+View(drug)
+```{r}
+drug
+```
+
+Get mean of the data.
+
+```{r}
+mean(drug$cesd)
+```
+
+Get variance of the data.
+
+```{r}
+var(drug$cesd)
+```
+
+The following function is similar to the describe function found in Pandas (Python).
+
+```{r}
+describe(drug)
+```
+
+Different plots.
+1. Box plot
+```{r}
+boxplot(mcs~cesd, data = drug, main = "Epidemiologic Studies", xlab = "cesd")
+```
+
+2. Histogram
+```{r}
+x = drug$cesd
+
+h <- hist(x, breaks=10, col="blue", xlab="CESD", main = "Epidemiologic Studies")
+
+xfit <- seq(min(x), max(x),length=40)
+
+yfit <- dnorm(xfit, mean=mean(x), sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+
+lines(xfit, yfit, col="red", lwd=3)
+```
+
+```{r}
+plot(drug$mcs, drug$cesd, main = "Epidemiologic Studies", xlab = "cesd")
+abline(lm(drug$mcs~drug$cesd), col="blue")
+```
