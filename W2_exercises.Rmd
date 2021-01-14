@@ -16,9 +16,17 @@ Loading drugs data.
 ```{r}
 drug <- read_csv("drug.csv")
 ```
+
 View(drug)
+
 ```{r}
 drug
+```
+
+The following will round off values to **three** significant figures.
+
+```{r}
+options(digits=3)
 ```
 
 Get mean of the data.
@@ -58,11 +66,14 @@ yfit <- yfit*diff(h$mids[1:2])*length(x)
 
 lines(xfit, yfit, col="red", lwd=3)
 ```
-
+3. Scatter Plot
 ```{r}
-plot(drug$mcs, drug$cesd, main = "Epidemiologic Studies", xlab = "cesd")
+plot(drug$mcs, drug$cesd, main = "Epidemiologic Studies", xlab = "cesd", ylab = "mcs")
 abline(lm(drug$mcs~drug$cesd), col="blue")
 ```
+
+Finding the slope of the line, i.e. the correlation between the two varibles.
+
 ```{r}
 cor(drug$mcs, drug$cesd, use="everything")
 ```
@@ -76,10 +87,4 @@ mytable <- CrossTable(drug$sex, drug$homeless)
 ```{r}
 mytable
 ```
-
-
-
-
-
-
 
