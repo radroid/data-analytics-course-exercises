@@ -1,0 +1,90 @@
+---
+title: "Week 2 - Exercises in R"
+output: html_notebook
+---
+Install required packages
+install.packages(c("lattice", "psych", "gmodels", "readr"))
+```{r}
+library(lattice)
+library(psych)
+library(gmodels)
+library(readr)
+```
+
+Loading drugs data.
+
+```{r}
+drug <- read_csv("drug.csv")
+```
+
+View(drug)
+
+```{r}
+drug
+```
+
+The following will round off values to **three** significant figures.
+
+```{r}
+options(digits=3)
+```
+
+Get mean of the data.
+
+```{r}
+mean(drug$cesd)
+```
+
+Get variance of the data.
+
+```{r}
+var(drug$cesd)
+```
+
+The following function is similar to the describe function found in Pandas (Python).
+
+```{r}
+describe(drug)
+```
+
+Different plots.
+1. Box plot
+```{r}
+boxplot(mcs~cesd, data = drug, main = "Epidemiologic Studies", xlab = "cesd")
+```
+
+2. Histogram
+```{r}
+x = drug$cesd
+
+h <- hist(x, breaks=10, col="blue", xlab="CESD", main = "Epidemiologic Studies")
+
+xfit <- seq(min(x), max(x),length=40)
+
+yfit <- dnorm(xfit, mean=mean(x), sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+
+lines(xfit, yfit, col="red", lwd=3)
+```
+3. Scatter Plot
+```{r}
+plot(drug$mcs, drug$cesd, main = "Epidemiologic Studies", xlab = "cesd", ylab = "mcs")
+abline(lm(drug$mcs~drug$cesd), col="blue")
+```
+
+Finding the slope of the line, i.e. the correlation between the two varibles.
+
+```{r}
+cor(drug$mcs, drug$cesd, use="everything")
+```
+
+Creating a Crosstab table.
+
+```{r}
+mytable <- CrossTable(drug$sex, drug$homeless)
+```
+
+```{r}
+mytable
+```
+
