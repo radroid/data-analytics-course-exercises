@@ -1,11 +1,11 @@
 ---
 title: "Assignment 1 - Data 1204"
-output: html_notebook
+output:
+  pdf_document: default
+  word_document: default
 ---
 Install required packages
-install.packages(c("lattice", "psych", "gmodels", "readr"))
-install.packages("ggplot2")
-
+install.packages(c("lattice", "psych", "gmodels", "readr", "ggplot2"))
 
 ```{r}
 library(lattice)
@@ -19,17 +19,14 @@ Loading cars db data
 
 ```{r}
 cars_db <- read.csv("carsDB.csv")
-```
-
-```{r}
 cars_db
 ```
 
 ```{r}
 ggplot(data = cars_db, aes(x=disp, y=mpg)) + geom_point(color = "#000000") + 
-  geom_smooth(formula=y~x, method='loess', color = "#154083") +
-  labs(title="Comparing Fuel Efficiency to Displacement",
-       subtitle="Relationship between the engine's fuel efficiency and its displacement for \ndifferent car models",
+  geom_smooth(formula = y~x, method = 'loess', color = "#154083") +
+  labs(title = "Comparing Fuel Efficiency to Displacement",
+       subtitle = "Relationship between the engine's fuel efficiency and its displacement for \ndifferent car models",
        x = "Displacement (cubic inches)",
        y = "Fuel Efficiency (miles per gallon)")
 ggsave("mpg_vs_disp.png", dpi = 1200)
@@ -37,28 +34,19 @@ ggsave("mpg_vs_disp.png", dpi = 1200)
 
 ```{r}
 ggplot(data = cars_db, aes(x=hp, y=mpg)) + geom_point(color = "#000000") + 
-  geom_smooth(formula=y~x, method='loess', color = "#154083") +
-  labs(title="Comparing Fuel Efficiency to Horsepower",
-       subtitle="Relationship between the engine's fuel efficiency and its theoretical power output \nfor different car models",
+  geom_smooth(formula = y~x, method = 'loess', color = "#154083") +
+  labs(title = "Comparing Fuel Efficiency to Horsepower",
+       subtitle = "Relationship between the engine's fuel efficiency and its theoretical power output \nfor different car models",
        x = "Gross Horsepower (hp)",
        y = "Fuel Efficiency (miles per gallon)")
 ggsave("mpg_vs_hp.png", dpi = 1200)
 ```
 ```{r}
 ggplot(data = cars_db, aes(x=wt, y=mpg)) + geom_point(color = "#000000") +
-  geom_smooth(formula=y~x, method='loess', color = "#154083") +
-  labs(title="Comparing Fuel Efficiency to Weight of the Car",
-       subtitle="Relationship between the engine's fuel efficiency and the overall weight of the car \nfor different car models",
+  geom_smooth(formula = y~x, method = 'loess', color = "#154083") +
+  labs(title = "Comparing Fuel Efficiency to Weight of the Car",
+       subtitle = "Relationship between the engine's fuel efficiency and the overall weight of the car \nfor different car models",
        x = "Weight (lb/1000)",
        y = "Fuel Efficiency (miles per gallon)")
 ggsave("mpg_vs_wt.png", dpi = 1200)
 ```
-
-```{r}
-demo("colors")
-```
-```{r}
-plotCol(nearRcolor())
-```
-
-
