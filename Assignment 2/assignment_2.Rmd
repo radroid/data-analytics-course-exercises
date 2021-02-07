@@ -1,0 +1,75 @@
+---
+title: "Assignment 2 - Data 1204"
+output:
+  word_document: default
+---
+## About the notebook
+In this notebook we will test the following hypothesis:
+
+$$H_{0}: Regular\ exercise\ does\ not\ have\ any\ impact\ on\ blood\ pressure.$$
+
+The process followed to determine if the null hypothesis is true is described in the word document. As the sample size is less than 30, the t-distribution table is used to determine the p-value.
+
+## Preparing the Environment and Loading Data
+Install required packages.
+
+```{r}
+# install.packages(c("lattice", "readr", "readxl"))
+```
+
+Loading the required libraries.
+
+```{r}
+library(lattice)
+library(readxl)
+library(readr)
+
+options(digits=3)
+```
+
+Loading blood pressure data.
+
+```{r}
+bp_data <- read_excel("BloodPressure.xls")
+bp_data
+```
+## Testing the Null Hypothesis (p-value calculation)
+> Calculating the absolute percentage change in blood pressure of the subjects before and after the 30-day experiment.
+
+```{r}
+bp_data$percent_change <- abs((bp_data$After - bp_data$Before)/bp_data$Before)
+bp_data
+```
+Calculating the mean, standard deviation and mean standard error of the sample provided. This will be used to calculate the t-value, which will further be used to calculate the p-value.
+
+```{r}
+mean.percent_change <- mean(bp_data$percent_change)
+sd.percent_change <- sd(bp_data$percent_change)
+SE.percent_change <- sd.percent_change / sqrt(length(bp_data$percent_change))
+mean.percent_change
+sd.percent_change
+SE.percent_change
+```
+
+## One-tail Test
+Null hypothesis:
+$$H_{0} = 0$$
+Alternate hypothesis:
+$$H_{a} > 0$$
+
+Calculating the t-value.
+```{r}
+# State the Ho value and calculate the z-score
+Ho <- 0
+t <- (mean.percent_change - Ho) / SE.percent_change
+t
+```
+
+Calulating the p-value.
+```{r}
+p_value <- pt(-t, df=length(bp_data$percent_change)-1)
+p_value
+p_value < 0.05 # Check if the p-value is less than 0.05 or 5%.
+```
+## Short Conclusion
+> **As it can be seen above, the p-value is significant and the null hypothesis can be rejected.**
