@@ -1,0 +1,58 @@
+---
+title: "Assignment 3 - Data 1204"
+output:
+  word_document: default
+---
+## About the notebook
+In this notebook we will test the following hypothesis:
+
+$$H_{0}: mean\ of\ sales\ with\ Ad2\ is\ equal\ to\ the\ mean\ of\ sales\ with\ Ad1.$$
+
+The process followed to determine if the null hypothesis is true is described in the word document. We will be carrying out a One Sample t-test. Hence, first the distribution of the sample data needs to checked: it should approximately normal.
+
+## Preparing the Environment and Loading Data
+Install required packages.
+
+```{r}
+# install.packages(c("lattice", "readr", "readxl"))
+```
+
+Loading the required libraries.
+
+```{r}
+library(lattice)
+library(readxl)
+library(readr)
+
+options(digits=3)
+```
+
+Loading Ad2 sales data.
+
+```{r}
+sales_data <- read_excel("adanalysis.xlsx")
+sales_data
+```
+## View the Distribution of Data
+> To use the One Sample t-test, we need to ensure the assumptions made for test are valid. One of the assumptions is that the distribution of the sample data should approximately normal.
+
+
+```{r}
+hist(sales_data$adtype2, freq=F, main="Apple's Weekly Sales Data of Fifteen Weeks for Ad2", xlab='Weekly Sales of "Apple Pro 11"', breaks=10) 
+lines(density(sales_data$adtype2), col="blue")
+```
+
+```{r}
+summary(sales_data)
+```
+
+
+## One Sample t-test
+> A simple package and method allows us to do the One Sample t-test with one line of code. The mean we are testing 
+
+```{r}
+t.test(sales_data, mu=30000, alternative = "two.sided")
+```
+
+## One Line Conclusion
+> **As it can be seen above, the p-value is significant and the null hypothesis can be rejected.**
